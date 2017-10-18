@@ -165,8 +165,8 @@ public class DES {
         System.out.println("Initial Permutation...");
 		tmp = permutFunc(bloc, IP);
 
-		L = extractBits(tmp, 0, IP.length/2);
-		R = extractBits(tmp, IP.length/2, IP.length/2);
+		L = extractBits(tmp, 0, IP.length / 2);
+		R = extractBits(tmp, IP.length / 2, IP.length / 2);
 
 		for (int i = 0; i < 16; i++) {
 			byte[] tmpR = R;
@@ -178,7 +178,7 @@ public class DES {
 			L = tmpR;													
 		}
 
-		tmp = concatBits(R, IP.length/2, L, IP.length/2);
+		tmp = concatBits(R, IP.length / 2, L, IP.length / 2);
 
 		tmp = permutFunc(tmp, invIP);
 		return tmp;
@@ -353,13 +353,54 @@ public class DES {
         System.out.println();
     }
 
+    /*
+    String a        = "10101010";
+String b        = "01010101";
+String expected = "11111111";  // expected result of a ^ b
+
+int aInt = Integer.parseInt(a, 2);
+int bInt = Integer.parseInt(b, 2);
+int xorInt = Integer.parseInt(expected, 2);
+
+byte aByte = (byte)aInt;
+byte bByte = (byte)bInt;
+byte xorByte = (byte)xorInt;
+
+// conversion routine compacted into single line
+byte xor = (byte)(0xff & ((int)aByte) ^ ((int)bByte));
+     */
+    private static void countOnes (int n)
+    {
+        int count=0;
+        while (n!=0)
+        {
+            n = n & (n-1);
+            count++;
+        }
+    }
+
     private static int avalauncheEffect(byte[] original, byte[] encoded) {
 
-        for (int i=0; i<encoded.length; i++) {
-            byteToBits(original[i]);
+        String org = "",
+                enc = "";
+
+        for (int i = 0; i < original.length; i++) {
+            org.concat(byteToBits(original[i]));
         }
-        System.out.println();
-		return 1;
+
+        for (int i=0; i<encoded.length; i++) {
+            enc.concat(byteToBits(encoded[i]));
+        }
+
+        //now org is binary string of original data and
+        //enc is binary string of encoded data
+
+        int aInt = Integer.parseInt(org, 2);
+        int bInt = Integer.parseInt(enc, 2);
+
+        int xor = aInt ^ bInt;
+
+		return countOnes(xor);
     }
 
     private static void printBytes(byte[] data) {
@@ -384,11 +425,8 @@ public class DES {
             printBytes(textClar.getBytes());
             System.out.println("---------------------------------------------------------------------------------------");
 
-//			System.out.println("Cleartext : "+textClar.getBytes());
 			byte[] enc = DES.encrypt(textClar.getBytes(), k.getBytes());
-//			System.out.println("Ciphertext : Length ="+enc.length+"\t Text ="+new String(enc));
 			byte[] dec = DES.decrypt(enc, k.getBytes());
-//			System.out.println("Cleartext DES: "+new String(dec));
 			
 		}catch(Exception e){
 			e.printStackTrace();
