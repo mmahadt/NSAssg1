@@ -353,7 +353,7 @@ public class DES {
         System.out.println();
     }
 	
-    private static void countOnes (int n)
+    private static int countOnes(int n)
     {
         int count=0;
         while (n!=0)
@@ -361,6 +361,7 @@ public class DES {
             n = n & (n-1);
             count++;
         }
+        return count;
     }
 
     private static int avalauncheEffect(byte[] original, byte[] encoded) {
