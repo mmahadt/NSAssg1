@@ -352,23 +352,7 @@ public class DES {
         }
         System.out.println();
     }
-
-    /*
-    String a        = "10101010";
-String b        = "01010101";
-String expected = "11111111";  // expected result of a ^ b
-
-int aInt = Integer.parseInt(a, 2);
-int bInt = Integer.parseInt(b, 2);
-int xorInt = Integer.parseInt(expected, 2);
-
-byte aByte = (byte)aInt;
-byte bByte = (byte)bInt;
-byte xorByte = (byte)xorInt;
-
-// conversion routine compacted into single line
-byte xor = (byte)(0xff & ((int)aByte) ^ ((int)bByte));
-     */
+	
     private static void countOnes (int n)
     {
         int count=0;
