@@ -143,7 +143,7 @@ public class DES {
         System.out.print("\t\tOriginal Contents (bin)\t");
         printBytes(input);
 
-        System.out.println("\t\tAvalaunche Effect\t");
+        System.out.println("\t\tAvalaunche Effect\t"+avalauncheEffect(input,out));
 
 		return out;
 	}
@@ -370,16 +370,17 @@ public class DES {
                 enc = "";
 
         for (int i = 0; i < original.length; i++) {
-            org.concat(byteToBits(original[i]));
+            org = org.concat(byteToBits(original[i]));
         }
 
         for (int i=0; i<encoded.length; i++) {
-            enc.concat(byteToBits(encoded[i]));
+            enc = enc.concat(byteToBits(encoded[i]));
         }
 
         //now org is binary string of original data and
         //enc is binary string of encoded data
 
+        System.out.println(org);
         int aInt = Integer.parseInt(org, 2);
         int bInt = Integer.parseInt(enc, 2);
 
