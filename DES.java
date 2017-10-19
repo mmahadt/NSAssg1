@@ -487,7 +487,10 @@ public class DES {
             System.out.println("\t\tUpdated Contents (bin):"+original[counter]);
             System.out.println("\t\tOriginal Contents (bin):"+updatedString[counter]);
             System.out.println("\t\tAvalanche Effect:"+compareBitStrings(original[counter],updatedString[counter]));
+            System.out.println("\t\tAvalanche Effect:"+compareBitStrings("1101","0011"));
+            //TODO: compare bit string throws error on different length string
 
+            //TODO: correct static context of intermediate
 //
 //            byte[] enc = DES.encrypt(textClar.getBytes(), k.getBytes());
 //            byte[] dec = DES.decrypt(enc, k.getBytes());
