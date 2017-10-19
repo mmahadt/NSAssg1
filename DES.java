@@ -352,7 +352,8 @@ public class DES {
         }
         System.out.println();
     }
-	
+
+
     private static void countOnes (int n)
     {
         int count=0;
