@@ -154,7 +154,6 @@ public class DES {
         byte[] R = new byte[bloc.length / 2];
         byte[] L = new byte[bloc.length / 2];
 
-        System.out.println("Initial Permutation...");
         tmp = permutFunc(bloc, IP);
         intermediates[idx]=byteArrayToBits(tmp);++idx;
 
@@ -396,7 +395,14 @@ public class DES {
         System.out.println("");
         System.out.println(name + ":");
         for (int i=0; i<data.length; i++) {
-            System.out.print(byteToBits(data[i])+" ");
+            System.out.print(byteToBits(data[i]));
+        }
+        System.out.println();
+    }
+
+    private void printBytes(byte[] data) {
+        for (int i=0; i<data.length; i++) {
+            System.out.print(byteToBits(data[i]));
         }
         System.out.println();
     }
@@ -422,12 +428,7 @@ public class DES {
         return count;
     }
 
-    private void printBytes(byte[] data) {
-        for (int i=0; i<data.length; i++) {
-            System.out.print(byteToBits(data[i])+" ");
-        }
-        System.out.println();
-    }
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -441,16 +442,23 @@ public class DES {
             DES d = new DES();
             DES des = new DES();
 
-            String[] original = d.encryptAndReturnIntermediatesArray(textClar.getBytes(), k.getBytes());
-            String[] updatedString = des.encryptAndReturnIntermediatesArray(updated.getBytes(), k.getBytes());
-
             System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("Plaintext:\t"+textClar);
             System.out.println("Length:\t" + textClar.getBytes().length);
             System.out.print("Original Contents (bin):\t");
+            d.printBytes(textClar.getBytes());
             System.out.println("---------------------------------------------------------------------------------------");
 
-            int counter = 0;
+            String[] original = d.encryptAndReturnIntermediatesArray(textClar.getBytes(), k.getBytes());
+            String[] updatedString = des.encryptAndReturnIntermediatesArray(updated.getBytes(), k.getBytes());
+
+            int counter = 2;
+
+            System.out.println("Initial Permutation:");
+            System.out.println("\t\tOutput length:"+original[1].length());
+            System.out.println("\t\tUpdated Contents (bin):"+updatedString[1]);
+            System.out.println("\t\tOriginal Contents (bin):"+original[1]);
+            System.out.println("\t\tAvalanche Effect:" + d.compareBitStrings(original[1], updatedString[1]));
 
             for (int i = 0; i < 16; i++) {
                 System.out.println("\nRound No "+ (i+1));
@@ -487,11 +495,7 @@ public class DES {
             System.out.println("\t\tUpdated Contents (bin):"+updatedString[counter]);
             System.out.println("\t\tOriginal Contents (bin):"+original[counter]);
             System.out.println("\t\tAvalanche Effect:" + d.compareBitStrings(original[counter], updatedString[counter]));
-//            System.out.println("\t\tAvalanche Effect:"+d.compareBitStrings("1101","00111"));
-            //TODO: compare bit string throws error on different length string
 
-            //TODO: correct static context of intermediate
-//
 //            byte[] enc = DES.encrypt(textClar.getBytes(), k.getBytes());
 //            byte[] dec = DES.decrypt(enc, k.getBytes());
 
